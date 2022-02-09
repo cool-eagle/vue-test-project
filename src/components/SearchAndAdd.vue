@@ -33,7 +33,6 @@ export default defineComponent({
       } else {
         upHere.value=false;
       }
-      console.log(upHere.value);
       return upHere.value;
     })
     return {

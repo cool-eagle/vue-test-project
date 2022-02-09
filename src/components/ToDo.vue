@@ -4,7 +4,7 @@
   </ul>
   <hr />
   <ul>
-    <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in todos" :key="index" :content="todo.content" />
+    <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in todos" :key="index" :content="todo.content" :idx="index+1" />
   </ul>
     <h4 v-if="todos.length === 0">Empty list.</h4>
 </template>

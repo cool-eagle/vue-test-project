@@ -1,6 +1,6 @@
 <template>
 <li @mouseover="upHere = true" @mouseleave="upHere = false">  
-      <span>{{ content }}</span>
+      <span>{{ content }}  #{{idx}}</span>
 	<div v-show="upHere" class="icon icon-trash" @click="$emit('remove')"></div>
 </li>
 </template>
@@ -13,6 +13,7 @@ export default defineComponent({
   name: 'ToDoItem',
   props: {
     content: String,
+    idx:Number,
   },
   emits: ['remove'],
 	setup(){
