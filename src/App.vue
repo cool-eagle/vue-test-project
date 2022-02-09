@@ -1,14 +1,19 @@
 <template>
   <div>
-    <!-- Html -->
+    <ToDo/>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import ToDo from "./components/ToDo.vue";
+
 export default defineComponent({
   name: 'App',
+  components: {
+    ToDo,
+  },
   setup() {
     // Setup
   },
@@ -16,5 +21,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
-// Style
+  body{
+    margin:0;
+    padding:0;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
