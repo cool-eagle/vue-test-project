@@ -1,12 +1,7 @@
 <template>
 
   <h1>ToDo App</h1>
-  <form @submit.prevent="addTodo()">
-    <label>New ToDo</label>
-    <input v-model="newTodo" name="newTodo" autocomplete="off" />
-    <button>Add ToDo</button>
-  </form>
-
+    <SearchAndAdd @addTodo="addTodo" />
   <h2>ToDo List</h2>
   <ul>
     <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in todos" :key="index" :content="todo.content" />
@@ -17,47 +12,47 @@
 <script lang="ts">
 import { ref } from 'vue';
 
+import SearchAndAdd from './SearchAndAdd.vue';
 import ToDoItem from './ToDoItem.vue';
 import { defineComponent } from '@vue/runtime-core';
 
 export default defineComponent({
   components: {
-      ToDoItem,
-    },
-    name: 'ToDo',
-    setup () {
-        const newTodo = ref(''); 
-        const defaultData = [{
-            content: 'Write a blog post'
-        }]
-        const todosData = JSON.parse(localStorage.getItem('todos') as any) || defaultData; 
-        const todos = ref(todosData);
-        function addTodo () {
-            if (newTodo.value) {
-                todos.value.push({
-                    content: newTodo.value
-                });
-                newTodo.value = '';
-            }
-            saveData();
+    SearchAndAdd,
+    ToDoItem,
+  },
+  name: 'ToDo',
+  setup () {
+       
+      const defaultData = [{
+          content: 'Write a blog post'
+      }]
+      const todosData = JSON.parse(localStorage.getItem('todos') as any) || defaultData; 
+      const todos = ref(todosData);
+      function addTodo (newTodo:any) {
+        if(newTodo){
+          todos.value.push({
+              content: newTodo
+          });
+          saveData();
         }
-        
-        function removeTodo (index: any) {
-            todos.value.splice(index, 1);
-            saveData();
-        }
-        function saveData () {
-            const storageData = JSON.stringify(todos.value);
-            localStorage.setItem('todos', storageData);
-        }
-        return {
-            todos,
-            newTodo,
-            addTodo,
-            removeTodo,
-            saveData
-        }
-    }
+      }
+      
+      function removeTodo (index: any) {
+          todos.value.splice(index, 1);
+          saveData();
+      }
+      function saveData () {
+          const storageData = JSON.stringify(todos.value);
+          localStorage.setItem('todos', storageData);
+      }
+      return {
+          todos,
+          addTodo,
+          removeTodo,
+          saveData
+      }
+  }
 })
 </script>
 
@@ -102,33 +97,5 @@ h2{
 	border-bottom: 1px solid $primaryCol;
   font-size: 20px;
   padding-bottom: 10px;
-}
-label{
-  font-size: 15px;
-}
-form{
-  width: 100%;
-}
-form button{
-  width: 100%;
-  height: 30px;
-  margin-top: 10px;
-  color: $primaryCol;
-  background: $tercialyCol;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-form button:hover{
-  background: $secondaryCol;
-}
-input{
-	width: 93%;
-  height: 30px;
-  border: 1px solid $primaryCol;
-  background: none;
-  border-radius: 5px;
-  color: $primaryCol;
-  padding: 0 10px;
 }
 </style>
