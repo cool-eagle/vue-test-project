@@ -20,6 +20,8 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" module>
-  
+<style lang="scss" >
+#app{
+    margin: 15vh 0 0 0;
+  }
 </style>
