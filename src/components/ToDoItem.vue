@@ -1,4 +1,4 @@
-<template id="to-do-item">
+<template>
 <li @mouseover="upHere = true" @mouseleave="upHere = false">  
       <span>{{ content }}</span>
 	<div v-show="upHere" class="icon icon-trash" @click="$emit('remove')"></div>
@@ -29,6 +29,9 @@ export default defineComponent({
 li{
   background: $quinaryCol;
   cursor: pointer;
+}
+li:hover{
+  background: $quaternalyCol;
 }
 .icon {
   height: 20px;

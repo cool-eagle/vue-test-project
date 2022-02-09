@@ -1,8 +1,8 @@
 <template>
-
-  <h1>ToDo App</h1>
+  <ul>
     <SearchAndAdd @addTodo="addTodo" />
-  <h2>ToDo List</h2>
+  </ul>
+  <hr />
   <ul>
     <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in todos" :key="index" :content="todo.content" />
   </ul>
@@ -60,18 +60,6 @@ export default defineComponent({
 ul{
   list-style: none;
   padding: 0;
-}
-ul button{
-  background: purple;
-  color: $primaryCol;
-  border-radius: 3px;
-  border: none;
-  font-size: 13px;
-  padding: 5px 4px;
-  cursor: pointer;
-}
-ul button:hover{
-  background: $secondaryCol;
 }
 li{
   width: 92%;  
