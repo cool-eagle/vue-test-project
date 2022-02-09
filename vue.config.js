@@ -24,6 +24,11 @@ module.exports = {
               : '[hash:base64]',
         },
       },
+      sass: {
+        additionalData: `
+          @import "./src/sass/_color.scss";
+        `
+      }
     },
   },
   chainWebpack(config) {

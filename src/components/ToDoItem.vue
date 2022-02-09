@@ -1,4 +1,4 @@
-<template>
+<template id="to-do-item">
 
 <li :class="{ done: done }" @click="$emit('done')">  <!--
     v-for - řetězec pro vypsání obashu (item - prvek ve zdroji, items - zdroj dat) /* OPRAVENO */
@@ -34,8 +34,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-$quaternalyCol: #01c400;
-$quinaryCol: #d50204;
 li{
   background: $quinaryCol;
   cursor: pointer;

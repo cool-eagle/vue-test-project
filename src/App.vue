@@ -1,4 +1,4 @@
-<template>
+<template id="app">
   <div>
     <ToDo/>
   </div>
@@ -21,14 +21,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
-  body{
-    margin:0;
-    padding:0;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    background-color: black;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  
 </style>
