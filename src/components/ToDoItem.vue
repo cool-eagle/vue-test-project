@@ -3,17 +3,18 @@
   <div>
     <div v-show="checkIfAlreadyExists" class="icon icon-check" ></div>
     <div>{{ content }}</div>
-    <div>{{ addedDate }}</div>
-    <div>{{elapsedTime}}</div>
     <div><span v-if="checkIfAlreadyExists">Exact match </span>#{{idx}}</div>
   </div>
-	<div v-show="upHere" class="icon icon-trash" @click="$emit('remove')"></div>
+  <div>
+    <div>{{elapsedTime}}</div>
+	  <div v-show="upHere" class="icon icon-trash" @click="$emit('remove')"></div>
+  </div>
 </li>
 </template>
 
 <script>
 import { ref } from 'vue';
-import { formatDistance, subDays } from 'date-fns'
+import { formatDistance } from 'date-fns'
 import { computed, defineComponent } from '@vue/runtime-core';
 
 export default defineComponent({

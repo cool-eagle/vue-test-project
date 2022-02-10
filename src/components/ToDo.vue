@@ -4,7 +4,7 @@
       <SearchAndAdd @addTodo="addTodo" @searchChange="searchChange" />
     
       <SortValue @sortValueClick="sortValueClick"></SortValue>
-      <button>Sort by Added Date</button>
+      <SortDate @sortDateClick="sortDateClick"></SortDate>
     </ul>
   </div>
   <div>
@@ -22,6 +22,7 @@ import { ref } from 'vue';
 import SearchAndAdd from './SearchAndAdd.vue';
 import ToDoItem from './ToDoItem.vue';
 import SortValue from './SortValue.vue';
+import SortDate from './SortDate.vue';
 import _ from 'lodash';
 
 import { computed, defineComponent } from '@vue/runtime-core';
@@ -31,6 +32,7 @@ export default defineComponent({
     SearchAndAdd,
     ToDoItem,
     SortValue,
+    SortDate
   },
   name: 'ToDo',
   setup () {
@@ -66,7 +68,10 @@ export default defineComponent({
           saveData();
       }
       function sortValueClick () {
-        todos.value=_.sortBy(todos.value, 'content', 'asc');       
+        todos.value=_.orderBy(todos.value, 'content', 'asc');       
+      }
+      function sortDateClick () {
+        todos.value=_.orderBy(todos.value, function(todo) {return new Date(todo.addedDate)}, 'desc');       
       }
       function saveData () {
           const storageData = JSON.stringify(todos.value);
@@ -81,6 +86,7 @@ export default defineComponent({
           searchChange,
           searchText,
           sortValueClick,
+          sortDateClick,
       }
   }
 })
