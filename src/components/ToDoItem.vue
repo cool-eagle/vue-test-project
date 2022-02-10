@@ -3,6 +3,8 @@
   <div>
     <div v-show="checkIfAlreadyExists" class="icon icon-check" ></div>
     <div>{{ content }}</div>
+    <div>{{ addedDate }}</div>
+    <div>{{elapsedTime}}</div>
     <div><span v-if="checkIfAlreadyExists">Exact match </span>#{{idx}}</div>
   </div>
 	<div v-show="upHere" class="icon icon-trash" @click="$emit('remove')"></div>
@@ -11,20 +13,26 @@
 
 <script>
 import { ref } from 'vue';
-import { defineComponent } from '@vue/runtime-core';
+import { formatDistance, subDays } from 'date-fns'
+import { computed, defineComponent } from '@vue/runtime-core';
 
 export default defineComponent({
   name: 'ToDoItem',
   props: {
     content: String,
+    addedDate: Number,
     idx:Number,
     checkIfAlreadyExists:Boolean,
   },
   emits: ['remove'],
-	setup(){
+	setup(props,{emit}){
 		const upHere=ref(false);
+    const elapsedTime=computed(()=>{
+        return formatDistance(new Date(props.addedDate), new Date(), { addSuffix: true })
+    })
 		return {
 			upHere,
+      elapsedTime,
 		}
 	}	
 })

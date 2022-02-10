@@ -10,7 +10,7 @@
   <div>
     <hr />
     <ul>    
-      <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in filteredList" :key="index" :content="todo.content" :idx="index+1" :checkIfAlreadyExists="todo.content === searchText" />
+      <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in filteredList" :key="index" :content="todo.content" :addedDate="todo.addedDate" :idx="index+1" :checkIfAlreadyExists="todo.content === searchText" />
     </ul>
     
   </div>
@@ -36,7 +36,8 @@ export default defineComponent({
   setup () {
        
       const defaultData = [{
-          content: 'Write a blog post'
+          content: 'Write a blog post',
+          addedDate: new Date()
       }]
       const todosData = JSON.parse(localStorage.getItem('todos') as any) || defaultData; 
       const todos = ref(todosData);
@@ -44,7 +45,8 @@ export default defineComponent({
       function addTodo (newTodo:any) {
         if(newTodo){
           todos.value.push({
-              content: newTodo
+              content: newTodo,
+              addedDate: new Date()
           });
           saveData();
           searchText.value='';
