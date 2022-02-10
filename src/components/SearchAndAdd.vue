@@ -77,7 +77,7 @@ input {
 }
 .icon-add {
   mask-image: url("../assets/add.svg");
-  background-color: #00f0f0;
+  background-color: #008080;
 }
 .icon-cancel {
   mask-image: url("../assets/cancel.svg");

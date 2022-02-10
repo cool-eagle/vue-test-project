@@ -1,6 +1,10 @@
 <template>
-<li @mouseover="upHere = true" @mouseleave="upHere = false">  
-      <span>{{ content }}  #{{idx}}</span>
+<li @mouseover="upHere = true" @mouseleave="upHere = false">
+  <div>
+    <div v-show="checkIfAlreadyExists" class="icon icon-check" ></div>
+    <div>{{ content }}</div>
+    <div><span v-if="checkIfAlreadyExists">Exact match </span>#{{idx}}</div>
+  </div>
 	<div v-show="upHere" class="icon icon-trash" @click="$emit('remove')"></div>
 </li>
 </template>
@@ -14,6 +18,7 @@ export default defineComponent({
   props: {
     content: String,
     idx:Number,
+    checkIfAlreadyExists:Boolean,
   },
   emits: ['remove'],
 	setup(){
@@ -34,10 +39,12 @@ li{
 li:hover{
   background: $quaternalyCol;
 }
+span{
+  color: #008080;
+}
 .icon {
   height: 20px;
   width: 20px;
-  background-color: red;
   -webkit-mask-size: contain;
   mask-size: contain;
   -webkit-mask-position: center;
@@ -46,6 +53,11 @@ li:hover{
   mask-repeat: no-repeat;
 }
 .icon-trash {
+  background-color: red;
   mask-image: url("../assets/trash.svg");
+}
+.icon-check {
+  background-color: #008080;
+  mask-image: url("../assets/check.svg");
 }
 </style>

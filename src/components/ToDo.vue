@@ -4,7 +4,8 @@
   </ul>
   <hr />
   <ul>
-    <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in filteredList" :key="index" :content="todo.content" :idx="index+1" />
+    
+    <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in filteredList" :key="index" :content="todo.content" :idx="index+1" :checkIfAlreadyExists="todo.content === searchText" />
   </ul>
     <h4 v-if="filteredList.length === 0">Empty list.</h4>
 </template>
@@ -63,7 +64,7 @@ export default defineComponent({
           saveData,
           filteredList,
           searchChange,
-          searchText
+          searchText,
       }
   }
 })
