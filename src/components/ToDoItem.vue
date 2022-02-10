@@ -26,7 +26,7 @@ export default defineComponent({
     checkIfAlreadyExists:Boolean,
   },
   emits: ['remove'],
-	setup(props,{emit}){
+	setup(props){
 		const upHere=ref(false);
     const elapsedTime=computed(()=>{
         return formatDistance(new Date(props.addedDate), new Date(), { addSuffix: true })

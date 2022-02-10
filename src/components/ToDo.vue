@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <SearchAndAdd @addTodo="addTodo" @searchChange="searchChange" />
+      <SearchAndAdd @addTodo="addTodo" @searchChange="searchChange" :isAlreadyExists="isAlreadyExists"/>
     
       <SortValue @sortValueClick="sortValueClick"></SortValue>
       <SortDate @sortDateClick="sortDateClick"></SortDate>
@@ -10,7 +10,15 @@
   <div>
     <hr />
     <ul>    
-      <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in filteredList" :key="index" :content="todo.content" :addedDate="todo.addedDate" :idx="index+1" :checkIfAlreadyExists="todo.content === searchText" />
+      <ToDoItem 
+        @remove="removeTodo(index)" 
+        v-for="(todo, index) in filteredList" 
+        :key="index" 
+        :content="todo.content" 
+        :addedDate="todo.addedDate" 
+        :idx="index+1" 
+        :checkIfAlreadyExists="checkIfAlreadyExists(todo)" 
+      />
     </ul>
     
   </div>
@@ -44,6 +52,7 @@ export default defineComponent({
       const todosData = JSON.parse(localStorage.getItem('todos') as any) || defaultData; 
       const todos = ref(todosData);
       const searchText=ref('');
+      let isAlreadyExists=ref(false);
       function addTodo (newTodo:any) {
         if(newTodo){
           todos.value.push({
@@ -57,10 +66,11 @@ export default defineComponent({
       
       function searchChange (newTodo:any) {
           searchText.value=newTodo;
+          isAlreadyExists.value=todos.value.some((todo:any) => todo.content.toLowerCase().trim() === newTodo.toLowerCase().trim());
       }      
 
       const filteredList=computed(()=>{
-        return todos.value.filter((todo:any) => todo.content.includes(searchText.value));
+        return todos.value.filter((todo:any) => todo.content.toLowerCase().includes(searchText.value.toLowerCase()));
       });
       
       function removeTodo (index: any) {
@@ -77,6 +87,9 @@ export default defineComponent({
           const storageData = JSON.stringify(todos.value);
           localStorage.setItem('todos', storageData);
       }
+      function checkIfAlreadyExists (todo:any) {
+          return todo.content.toLowerCase() === searchText.value.toLowerCase()
+      }
       return {
           todos,
           addTodo,
@@ -87,6 +100,8 @@ export default defineComponent({
           searchText,
           sortValueClick,
           sortDateClick,
+          checkIfAlreadyExists,
+          isAlreadyExists,
       }
   }
 })

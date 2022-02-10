@@ -2,7 +2,7 @@
   <li >
       <input v-model="newTodo" @input="searchChange" @keypress.enter="addTodo" @keydown.esc="cancelTodo" name="newTodo" autocomplete="on" placeholder="Search or Add..." />
       <div v-if="isShow" class="icon icon-cancel" @click="cancelTodo"></div>
-      <div v-if="isShow" class="icon icon-add" @click="addTodo"></div>
+      <div v-if="isShow && !isAlreadyExists" class="icon icon-add" @click="addTodo"></div>
     
   </li>
 </template>
@@ -13,6 +13,7 @@ import { computed, defineComponent } from '@vue/runtime-core';
 
 export default defineComponent({
   name: 'SearchAndAdd',
+  props: {isAlreadyExists:Boolean},
 	emits: ['addTodo', 'searchChange'],
   setup (props,{emit}) {
     const newTodo = ref(''); 
