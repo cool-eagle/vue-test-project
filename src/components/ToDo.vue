@@ -1,13 +1,19 @@
 <template>
-  <ul>
-    <SearchAndAdd @addTodo="addTodo" @searchChange="searchChange" />
-  </ul>
-  <hr />
-  <ul>
+  <div>
+    <ul>
+      <SearchAndAdd @addTodo="addTodo" @searchChange="searchChange" />
     
-    <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in filteredList" :key="index" :content="todo.content" :idx="index+1" :checkIfAlreadyExists="todo.content === searchText" />
-  </ul>
-    <h4 v-if="filteredList.length === 0">Empty list.</h4>
+      <SortValue @sortValueClick="sortValueClick"></SortValue>
+      <button>Sort by Added Date</button>
+    </ul>
+  </div>
+  <div>
+    <hr />
+    <ul>    
+      <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in filteredList" :key="index" :content="todo.content" :idx="index+1" :checkIfAlreadyExists="todo.content === searchText" />
+    </ul>
+    
+  </div>
 </template>
 
 <script lang="ts">
@@ -15,12 +21,16 @@ import { ref } from 'vue';
 
 import SearchAndAdd from './SearchAndAdd.vue';
 import ToDoItem from './ToDoItem.vue';
+import SortValue from './SortValue.vue';
+import _ from 'lodash';
+
 import { computed, defineComponent } from '@vue/runtime-core';
 
 export default defineComponent({
   components: {
     SearchAndAdd,
     ToDoItem,
+    SortValue,
   },
   name: 'ToDo',
   setup () {
@@ -53,6 +63,9 @@ export default defineComponent({
           todos.value.splice(index, 1);
           saveData();
       }
+      function sortValueClick () {
+        todos.value=_.sortBy(todos.value, 'content', 'asc');       
+      }
       function saveData () {
           const storageData = JSON.stringify(todos.value);
           localStorage.setItem('todos', storageData);
@@ -65,6 +78,7 @@ export default defineComponent({
           filteredList,
           searchChange,
           searchText,
+          sortValueClick,
       }
   }
 })
@@ -83,6 +97,19 @@ li{
   justify-content: space-between;
   font-size: 13px;
   margin-bottom: 20px;
+}
+button{
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+  color: $text;
+  background: $quinaryCol;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+button:hover{
+  background: $quaternalyCol;
 }
 span{
   padding: 0;

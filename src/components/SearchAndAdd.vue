@@ -1,11 +1,8 @@
 <template>
   <li >
       <input v-model="newTodo" @input="searchChange" @keypress.enter="addTodo" @keydown.esc="cancelTodo" name="newTodo" autocomplete="on" placeholder="Search or Add..." />
-
-    
       <div v-if="isShow" class="icon icon-cancel" @click="cancelTodo"></div>
       <div v-if="isShow" class="icon icon-add" @click="addTodo"></div>
-      
     
   </li>
 </template>
