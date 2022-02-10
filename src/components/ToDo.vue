@@ -1,12 +1,12 @@
 <template>
   <ul>
-    <SearchAndAdd @addTodo="addTodo" />
+    <SearchAndAdd @addTodo="addTodo" @searchChange="searchChange" />
   </ul>
   <hr />
   <ul>
-    <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in todos" :key="index" :content="todo.content" :idx="index+1" />
+    <ToDoItem @remove="removeTodo(index)" v-for="(todo, index) in filteredList" :key="index" :content="todo.content" :idx="index+1" />
   </ul>
-    <h4 v-if="todos.length === 0">Empty list.</h4>
+    <h4 v-if="filteredList.length === 0">Empty list.</h4>
 </template>
 
 <script lang="ts">
@@ -14,7 +14,7 @@ import { ref } from 'vue';
 
 import SearchAndAdd from './SearchAndAdd.vue';
 import ToDoItem from './ToDoItem.vue';
-import { defineComponent } from '@vue/runtime-core';
+import { computed, defineComponent } from '@vue/runtime-core';
 
 export default defineComponent({
   components: {
@@ -29,14 +29,24 @@ export default defineComponent({
       }]
       const todosData = JSON.parse(localStorage.getItem('todos') as any) || defaultData; 
       const todos = ref(todosData);
+      const searchText=ref('');
       function addTodo (newTodo:any) {
         if(newTodo){
           todos.value.push({
               content: newTodo
           });
           saveData();
+          searchText.value='';
         }
       }
+      
+      function searchChange (newTodo:any) {
+          searchText.value=newTodo;
+      }      
+
+      const filteredList=computed(()=>{
+        return todos.value.filter((todo:any) => todo.content.includes(searchText.value));
+      });
       
       function removeTodo (index: any) {
           todos.value.splice(index, 1);
@@ -50,7 +60,10 @@ export default defineComponent({
           todos,
           addTodo,
           removeTodo,
-          saveData
+          saveData,
+          filteredList,
+          searchChange,
+          searchText
       }
   }
 })

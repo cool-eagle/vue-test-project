@@ -1,6 +1,6 @@
 <template>
   <li >
-      <input v-model="newTodo" name="newTodo" autocomplete="off" placeholder="Search or Add..." />
+      <input v-model="newTodo" @input="searchChange" @keypress.enter="addTodo" @keydown.esc="cancelTodo" name="newTodo" autocomplete="on" placeholder="Search or Add..." />
 
     
       <div v-if="isShow" class="icon icon-cancel" @click="cancelTodo"></div>
@@ -16,7 +16,7 @@ import { computed, defineComponent } from '@vue/runtime-core';
 
 export default defineComponent({
   name: 'SearchAndAdd',
-	emits: ['addTodo'],
+	emits: ['addTodo', 'searchChange'],
   setup (props,{emit}) {
     const newTodo = ref(''); 
     const upHere=ref(false);
@@ -24,8 +24,12 @@ export default defineComponent({
 			emit("addTodo",newTodo.value)
 			newTodo.value='';
 		}
+    const searchChange=()=>{
+			emit("searchChange",newTodo.value)
+		}
     const cancelTodo=()=>{
       newTodo.value='';
+      emit("searchChange",newTodo.value)
     }
     const isShow=computed(()=>{
       if(newTodo.value){
@@ -40,6 +44,7 @@ export default defineComponent({
       newTodo,
 			addTodo,
       cancelTodo,
+      searchChange
     }
   }
 })
