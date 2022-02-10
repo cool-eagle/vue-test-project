@@ -19,8 +19,10 @@ export default defineComponent({
     const newTodo = ref(''); 
     const upHere=ref(false);
     const addTodo=()=>{
-			emit("addTodo",newTodo.value)
-			newTodo.value='';
+      if(!props.isAlreadyExists){
+        emit("addTodo",newTodo.value);
+        newTodo.value='';
+      }
 		}
     const searchChange=()=>{
 			emit("searchChange",newTodo.value)
