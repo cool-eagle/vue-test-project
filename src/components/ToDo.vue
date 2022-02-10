@@ -126,28 +126,16 @@ button{
   height: 30px;
   margin-top: 10px;
   color: $text;
-  background: $quinaryCol;
+  background: $backCol;
   border-radius: 5px;
   border: none;
   cursor: pointer;
 }
 button:hover{
-  background: $quaternalyCol;
+  background: $backFocusCol;
 }
 span{
   padding: 0;
   margin: 5px 0 0 0;
-}
-h1{
-	text-align: center;
-  font-size: 30px;
-}
-h1, h2, h4{
-	font-weight: normal;
-}
-h2{
-	border-bottom: 1px solid $primaryCol;
-  font-size: 20px;
-  padding-bottom: 10px;
 }
 </style>

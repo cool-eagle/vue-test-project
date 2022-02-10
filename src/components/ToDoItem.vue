@@ -42,14 +42,14 @@ export default defineComponent({
 
 <style scoped lang="scss">
 li{
-  background: $quinaryCol;
+  background: $backCol;
   cursor: pointer;
 }
 li:hover{
-  background: $quaternalyCol;
+  background: $backFocusCol;
 }
 span{
-  color: #008080;
+  color: $greenCol;
 }
 .icon {
   height: 20px;
@@ -62,11 +62,11 @@ span{
   mask-repeat: no-repeat;
 }
 .icon-trash {
-  background-color: red;
+  background-color: $redCol;
   mask-image: url("../assets/trash.svg");
 }
 .icon-check {
-  background-color: #008080;
+  background-color: $greenCol;
   mask-image: url("../assets/check.svg");
 }
 </style>

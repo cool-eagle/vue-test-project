@@ -52,7 +52,7 @@ export default defineComponent({
 
 <style lang="scss">
 li{
-  background: $quinaryCol;
+  background: $backCol;
   cursor: pointer;
 }
 
@@ -62,7 +62,7 @@ input {
   border: none;
   background: transparent;
   border-radius: 5px;
-  color: $primaryCol;
+  color: $text;
   padding: 0 10px;
 }
 .icon {
@@ -77,10 +77,10 @@ input {
 }
 .icon-add {
   mask-image: url("../assets/add.svg");
-  background-color: #008080;
+  background-color: $greenCol;
 }
 .icon-cancel {
   mask-image: url("../assets/cancel.svg");
-  background-color: red;
+  background-color: $redCol;
 }
 </style>
