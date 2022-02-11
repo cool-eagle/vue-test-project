@@ -66,7 +66,7 @@ export default defineComponent({
         if(newTodo){
           todos.value.push({
               content: newTodo,
-              addedDate: new Date()
+              addedDate: new Date().toString()
           });
           saveData();
           searchText.value='';

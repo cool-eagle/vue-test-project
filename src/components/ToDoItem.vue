@@ -24,7 +24,7 @@ export default defineComponent({
   name: 'ToDoItem',
   props: {
     content: String,
-    addedDate: Number,
+    addedDate: String,
     idx:Number,
     checkIfAlreadyExists:Boolean,
   },
