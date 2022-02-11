@@ -50,10 +50,9 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 li{
   background: $backCol;
-  cursor: pointer;
 }
 
 input {
@@ -65,6 +64,7 @@ input {
   color: $text;
   padding: 0 10px;
 }
+
 .icon {
   height: 30px;
   width: 30px;

@@ -1,15 +1,18 @@
 <template>
 <li @mouseover="upHere = true" @mouseleave="upHere = false">
-  <div>
+  <div class="item-container">
     <div v-show="checkIfAlreadyExists" class="icon icon-check" ></div>
-    <div>{{ content }}</div>
-    <div><span v-if="checkIfAlreadyExists">Exact match </span>#{{idx}}</div>
+    <div>
+      <div>{{ content }}</div>
+      <div><span v-if="checkIfAlreadyExists">Exact match </span>#{{idx}}</div>
+    </div>
   </div>
-  <div>
+  <div class="item-container">
     <div>{{elapsedTime}}</div>
 	  <div v-show="upHere" class="icon icon-trash" @click="$emit('remove')"></div>
   </div>
 </li>
+<hr>
 </template>
 
 <script>
@@ -40,7 +43,7 @@ export default defineComponent({
 
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
 li{
   background: $backCol;
   cursor: pointer;
@@ -51,9 +54,17 @@ li:hover{
 span{
   color: $greenCol;
 }
+hr {
+  margin: 0px;
+}
+.item-container{
+  display: flex;
+  align-items: center;
+}
 .icon {
   height: 20px;
   width: 20px;
+  margin:5px;
   -webkit-mask-size: contain;
   mask-size: contain;
   -webkit-mask-position: center;

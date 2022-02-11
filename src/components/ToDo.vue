@@ -1,26 +1,34 @@
 <template>
-  <div>
-    <ul>
-      <SearchAndAdd @addTodo="addTodo" @searchChange="searchChange" :isAlreadyExists="isAlreadyExists"/>
-    
-      <SortValue @sortValueClick="sortValueClick"></SortValue>
-      <SortDate @sortDateClick="sortDateClick"></SortDate>
-    </ul>
-  </div>
-  <div>
-    <hr />
-    <ul>    
-      <ToDoItem 
-        @remove="removeTodo(index)" 
-        v-for="(todo, index) in filteredList" 
-        :key="index" 
-        :content="todo.content" 
-        :addedDate="todo.addedDate" 
-        :idx="index+1" 
-        :checkIfAlreadyExists="checkIfAlreadyExists(todo)" 
-      />
-    </ul>
-    
+  <div :class="$style.container">
+    <div :class="$style.somethingListBox"></div>
+    <div :class="$style.mainListBox">
+      <ul>
+        <SearchAndAdd @addTodo="addTodo" @searchChange="searchChange" :isAlreadyExists="isAlreadyExists"/>
+      
+      </ul>
+      <hr />
+      <ul>    
+        <ToDoItem 
+          @remove="removeTodo(index)" 
+          v-for="(todo, index) in filteredList" 
+          :key="index" 
+          :content="todo.content" 
+          :addedDate="todo.addedDate" 
+          :idx="index+1" 
+          :checkIfAlreadyExists="checkIfAlreadyExists(todo)" 
+        />
+      </ul>
+    </div>
+    <div :class="$style.buttonListBox">
+      <ul>
+        <li>
+          <SortValue @sortValueClick="sortValueClick"></SortValue>
+        </li>
+        <li>
+          <SortDate @sortDateClick="sortDateClick"></SortDate>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -107,35 +115,49 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
+
+  .container {
+    display:flex;
+    justify-content: space-around;
+  }
+  .mainListBox {
+    flex-basis:30%;
+  }
+  .somethingListBox {
+    flex-basis:20%;
+  }
+  .buttonListBox {
+    flex-basis:20%;
+  }
+
 ul{
   list-style: none;
   padding: 0;
 }
+ul>hr:last-child{
+  display: none;
+}
 li{
-  width: 92%;  
+  width: 100%;
   border-radius: 5px;
   padding: 10px 10px 10px 10px;
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
-  margin-bottom: 20px;
 }
 button{
   width: 100%;
-  height: 30px;
   margin-top: 10px;
+  margin-right: 30%;
+  padding: 1em;
   color: $text;
   background: $backCol;
   border-radius: 5px;
   border: none;
+  text-align: start;
   cursor: pointer;
 }
 button:hover{
   background: $backFocusCol;
-}
-span{
-  padding: 0;
-  margin: 5px 0 0 0;
 }
 </style>

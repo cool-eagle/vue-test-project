@@ -1,5 +1,5 @@
-<template id="app">
-  <div>
+<template>
+  <div :class="$style.app">
     <ToDo/>
   </div>
 </template>
@@ -20,8 +20,8 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" >
-#app{
+<style lang="scss" module>
+.app{
     margin: 15vh 0 0 0;
   }
 </style>
