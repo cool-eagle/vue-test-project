@@ -1,8 +1,24 @@
 <template>
   <li >
-      <input v-model="newTodo" @input="searchChange" @keypress.enter="addTodo" @keydown.esc="cancelTodo" name="newTodo" autocomplete="on" placeholder="Search or Add..." />
-      <div v-if="isShow" class="icon icon-cancel" @click="cancelTodo"></div>
-      <div v-if="isShow && !isAlreadyExists" class="icon icon-add" @click="addTodo"></div>
+      <input 
+        v-model="newTodo" 
+        @input="searchChange" 
+        @keypress.enter="addTodo" 
+        @keydown.esc="cancelTodo" 
+        name="newTodo" 
+        autocomplete="on" 
+        placeholder="Search or Add..." 
+      />
+      <div 
+        v-if="isShow" 
+        class="icon icon-cancel" 
+        @click="cancelTodo"
+      ></div>
+      <div 
+        v-if="isShow && !isAlreadyExists" 
+        class="icon icon-add" 
+        @click="addTodo"
+      ></div>
     
   </li>
 </template>
@@ -54,7 +70,6 @@ export default defineComponent({
 li{
   background: $backCol;
 }
-
 input {
 	width: 90%;
   height: 30px;
@@ -64,7 +79,6 @@ input {
   color: $text;
   padding: 0 10px;
 }
-
 .icon {
   height: 30px;
   width: 30px;

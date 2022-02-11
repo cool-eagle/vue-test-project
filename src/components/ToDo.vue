@@ -3,8 +3,11 @@
     <div :class="$style.somethingListBox"></div>
     <div :class="$style.mainListBox">
       <ul>
-        <SearchAndAdd @addTodo="addTodo" @searchChange="searchChange" :isAlreadyExists="isAlreadyExists"/>
-      
+        <SearchAndAdd 
+          @addTodo="addTodo" 
+          @searchChange="searchChange" 
+          :isAlreadyExists="isAlreadyExists"
+        />
       </ul>
       <hr />
       <ul>    
@@ -22,10 +25,14 @@
     <div :class="$style.buttonListBox">
       <ul>
         <li>
-          <SortValue @sortValueClick="sortValueClick"></SortValue>
+          <SortValue 
+            @sortValueClick="sortValueClick"
+          />
         </li>
         <li>
-          <SortDate @sortDateClick="sortDateClick"></SortDate>
+          <SortDate 
+            @sortDateClick="sortDateClick"
+          />
         </li>
       </ul>
     </div>
@@ -34,14 +41,13 @@
 
 <script lang="ts">
 import { ref } from 'vue';
+import { computed, defineComponent } from '@vue/runtime-core';
+import _ from 'lodash';
 
 import SearchAndAdd from './SearchAndAdd.vue';
 import ToDoItem from './ToDoItem.vue';
 import SortValue from './SortValue.vue';
 import SortDate from './SortDate.vue';
-import _ from 'lodash';
-
-import { computed, defineComponent } from '@vue/runtime-core';
 
 export default defineComponent({
   components: {
@@ -52,12 +58,7 @@ export default defineComponent({
   },
   name: 'ToDo',
   setup () {
-       
-      const defaultData = [{
-          content: 'Write a blog post',
-          addedDate: new Date()
-      }]
-      const todosData = JSON.parse(localStorage.getItem('todos') as any) || defaultData; 
+      const todosData = JSON.parse(localStorage.getItem('todos') as any) || []; 
       const todos = ref(todosData);
       const searchText=ref('');
       let isAlreadyExists=ref(false);
@@ -74,11 +75,15 @@ export default defineComponent({
       
       function searchChange (newTodo:any) {
           searchText.value=newTodo;
-          isAlreadyExists.value=todos.value.some((todo:any) => todo.content.toLowerCase().trim() === newTodo.toLowerCase().trim());
+          isAlreadyExists.value=todos.value.some(
+            (todo:any) => todo.content.toLowerCase().trim() === newTodo.toLowerCase().trim()
+          );
       }      
 
       const filteredList=computed(()=>{
-        return todos.value.filter((todo:any) => todo.content.toLowerCase().includes(searchText.value.toLowerCase()));
+        return todos.value.filter(
+          (todo:any) => todo.content.toLowerCase().includes(searchText.value.toLowerCase())
+        );
       });
       
       function removeTodo (index: any) {
@@ -116,7 +121,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
-
   .container {
     display:flex;
     justify-content: space-around;
@@ -130,7 +134,6 @@ export default defineComponent({
   .buttonListBox {
     flex-basis:20%;
   }
-
 ul{
   list-style: none;
   padding: 0;
