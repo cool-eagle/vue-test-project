@@ -7,7 +7,7 @@ const { join } = require('path');
  */
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/list/' : '/',
+  publicPath: '/',
   devServer: {
     overlay: {
       errors: true,
